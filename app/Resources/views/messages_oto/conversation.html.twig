@@ -1,0 +1,274 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+            <div class="row">
+                <div class="col-md-3 well">
+                    <h2>Toutes les conversations</h2>
+                    <div class="list-group">
+                        {% set array_box = {} %}
+                        {% for talking_to_user_name in talking_to_user_names %}
+                            {% if talking_to_user_name.fromUser not in array_box and talking_to_user_name.fromUser != user %}
+                                {% set array_box = array_box|merge([talking_to_user_name.fromUser])%}
+                            {% endif %}
+
+                            {% if talking_to_user_name.toUser not in array_box and talking_to_user_name.toUser != user %}
+                                {% set array_box = array_box|merge([talking_to_user_name.toUser])%}
+                            {% endif %}
+                        {% endfor %}
+
+
+
+
+
+                        {% for talking_to_user_name in array_box %}
+
+                            <p><a class="list-group-item" href="{{ path('conversation_show', {'talking_to_user_name' : talking_to_user_name}) }}">
+                                    {{ talking_to_user_name}}
+                                    {% for un_read  in unread %}
+                                    {% if un_read.username == talking_to_user_name and un_read.cnt != 0 %}  <span class="badge badge-primary badge-pill">{{un_read.cnt}}</span> {% endif %}
+                                    {% endfor %}
+                                </a></p>
+                        {% endfor %}
+
+                    </div>
+            </div>
+                <div class="col-md-9">
+                    <div class="col-md-12 card">
+                        <h3>Règlements relatifs au contenu et au comportement de l'utilisateur</h3>
+                        <p>Les produits et services de réseaux sociaux et de partage Les Râleuurs permettent à des individus issus de milieux divers de lancer des pétitions et sondages, partager des expériences, collaborer sur des projets et créer des communautés.</p>
+                        <br/>
+                        <p>
+                            Il se peut que nous apportions des modifications aux présents règlements. Veuillez donc consulter cette page régulièrement. Des règles et conditions supplémentaires s'appliquent à plusieurs produits et fonctionnalités, en sus des règlements ci-dessous.
+                        </p>
+                        <ol>
+                            <li>
+                                <h3>
+                                    Activités illégales
+                                </h3>
+                                <p>
+                                    Vous ne devez pas utiliser nos Services pour prendre part à des activités illégales
+                                    ou pour promouvoir des activités dangereuses et illicites, telles que la vente de
+                                    drogues prohibées ou le trafic d'êtres humains.
+                                </p>
+                                <p>
+                                    Nous nous réservons également le droit de supprimer tout contenu qui
+                                    contreviendrait aux lois locales en vigueur. Si vous pensez qu'un contenu devrait
+                                    être supprimé, car contraire à la législation de votre pays, signalez-le.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Pratiques malveillantes et trompeuses
+                                </h3>
+                                <p>
+                                    Il est interdit de transmettre des virus, des logiciels malveillants ou tout autre
+                                    sorte de code malveillant ou destructeur. Il est également interdit de diffuser du
+                                    contenu susceptible d'endommager les réseaux, les serveurs ou toute autre
+                                    infrastructure de Les Râleuurs ou de tiers, ou de perturber leur fonctionnement.
+                                    N'utilisez pas nos Services pour commettre des escroqueries par hameçonnage.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Incitation à la haine
+                                </h3>
+                                <p>
+                                    Nos produits se veulent des espaces de libre expression, mais nous n'acceptons pas
+                                    pour autant la publication de propos haineux. L'incitation à la haine désigne tout
+                                    contenu qui justifie la violence, ou y incite, ou dont l'objectif principal est
+                                    d'inciter à la haine envers une personne ou un groupe en raison de son origine
+                                    ethnique, de sa religion, de son handicap, de son âge, de sa nationalité, de son
+                                    statut d'ancien combattant, de son sexe, de son identité de genre, ou de toute
+                                    autre caractéristique associée à une discrimination ou une marginalisation
+                                    systématiques.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Harcèlement, intimidation et menaces
+                                </h3>
+                                <p>
+                                    Le harcèlement, l'intimidation et les menaces, de même que l'incitation à de telles
+                                    pratiques, sont interdits. Quiconque utilise nos Services pour choisir une personne
+                                    en vue de l'abuser, menacer une personne d'atteintes graves, transformer quelqu'un
+                                    en objet sexuel contre son gré ou pratiquer d'autres formes de harcèlement, peut
+                                    voir son contenu incriminé supprimé ou peut être exclu des Services de manière
+                                    définitive. En cas d'urgence, nous signalerons aux autorités chargées de faire
+                                    respecter la loi les menaces d'atteintes graves imminentes. Le harcèlement en ligne
+                                    est également illégal dans de nombreux pays et peut avoir de graves conséquences
+                                    dans la vie réelle, tant pour l'auteur que pour la victime.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Informations personnelles et confidentielles
+                                </h3>
+                                <p>
+                                    Vous ne devez pas divulguer les informations personnelles et confidentielles d'un
+                                    tiers sans son autorisation, telles que son numéro de carte de paiement, son numéro
+                                    d'identification national ou les mots de passe de ses comptes. Vous ne devez pas
+                                    non plus publier, ni distribuer d'images représentant des mineurs sans
+                                    le consentement de leurs représentants légaux.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Exploitation des enfants
+                                </h3>
+                                <p>
+                                    Vous ne devez pas importer, ni partager de contenus dans lesquels des enfants sont
+                                    exploités ou maltraités, tels que des images présentant des abus sexuels sur des
+                                    enfants (y compris sous forme de dessins) ou des contenus mettant en scène des
+                                    enfants dans des positions suggestives. Nous supprimerons ces contenus et prendrons
+                                    les mesures nécessaires, comme désactiver le compte et signaler ces contenus à
+                                    l'Association des Fournisseurs d'Accès et de Services Internet (AFA) et aux
+                                    autorités chargées de faire respecter la loi. Ces règles s'appliquent également aux
+                                    contenus importés ou transmis via nos Services.
+                                </p>
+                                <p>
+                                    Si certains contenus vous semblent exploiter ainsi des enfants, ne leur attribuez
+                                    pas&nbsp;+1, ne les transférez pas et ne les commentez pas, même dans l'intention
+                                    d'attirer l'attention de Les Râleuurs.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Spam
+                                </h3>
+                                <p>
+                                    L'envoi de spam, y compris de contenus promotionnels ou commerciaux indésirables et
+                                    de sollicitations de masse ou non souhaitées, n'est pas autorisé.
+                                </p>
+                                <p>
+                                    Vous ne devez pas envoyer de façon massive des invitations ou des messages à des
+                                    inconnus, ni les ajouter de façon agressive à vos cercles.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Manipulation du classement
+                                </h3>
+                                <p>
+                                    Ne manipulez pas les classements ni la pertinence, par exemple en saisissant des
+                                    métadonnées ou des mots clés répétitifs ou trompeurs.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Contenu à caractère sexuel explicite
+                                </h3>
+                                <p>
+                                    Ne publiez pas de contenus à caractère sexuel explicite ou pornographiques. Il est
+                                    également interdit de rediriger l'utilisateur vers des sites de pornographie
+                                    commerciale.
+                                </p>
+                                <p>
+                                    Nous autorisons les scènes de nudité de style naturaliste et documentaire (comme
+                                    l'image d'un enfant au sein), ainsi que les scènes de nudité réalisées dans un
+                                    objectif éducatif, scientifique ou artistique évident.
+                                </p>
+                                <p>
+                                    La photo de votre profil Les Râleuurs ne doit comporter aucun contenu choquant ou
+                                    réservé aux adultes. Par exemple, vous n'êtes pas autorisé à publier une photo en
+                                    gros plan des fesses ou du décolleté d'une personne.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Violence
+                                </h3>
+                                <p>
+                                    La violence gratuite ou les contenus à caractère sanglant visant à choquer ou à
+                                    susciter un intérêt malsain ne sont pas autorisés. Si vous publiez des contenus
+                                    dans un contexte documentaire, scientifique, artistique ou en lien avec
+                                    l'actualité, pensez à donner suffisamment d'informations aux utilisateurs pour
+                                    qu'ils comprennent ce dont il s'agit. Dans certains cas, les contenus publiés
+                                    peuvent être si violents ou choquants qu'aucun contexte ne pourra justifier leur
+                                    présence sur nos plates-formes. Enfin, n'encouragez pas les autres personnes à
+                                    commettre des actes de violence spécifiques.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Biens et services soumis à règlementation
+                                </h3>
+                                <p>
+                                    Nos Services permettent d'échanger sur de nombreux sujets. En revanche, nous
+                                    n'autorisons pas les contenus dont l'objectif est d'encourager la vente de produits
+                                    et services réglementés (alcool, jeux d'argent et de hasard, produits
+                                    pharmaceutiques et autres compléments alimentaires non autorisés, tabac, feux
+                                    d'artifice, armes, appareils de santé et dispositifs médicaux, etc.).
+                                </p>
+                                <p>
+                                    Une réglementation stricte encadre souvent ces sujets qui, de plus, ne sont pas
+                                    forcément adaptés à tous les âges, ni à tous les pays. Nous avons donc créé des
+                                    outils dansLes Râleuurs permettant de cibler vos contenus en fonction de l'âge des
+                                    internautes et des marchés. Si votre contenu fait la promotion de biens ou services
+                                    réglementés, vous devez lui appliquer les restrictions adéquates (âge, emplacement
+                                    géographique) lorsque ces outils sont disponibles. Si nous recevons une réclamation
+                                    signalant que des contenus de ce type ne respectent pas les lois et réglementations
+                                    en vigueur, nous pouvons supprimer les contenus ou le compte incriminés, ou en
+                                    limiter l'accès.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Usurpation d'identité et déclarations trompeuses
+                                </h3>
+                                <p>
+                                    Il est interdit d'utiliser nos services dans l'intention de tromper ou d'induire en
+                                    erreur les utilisateurs en usurpant l'identité d'une personne ou d'une organisation
+                                    que vous prétendez représenter, ou en dissimulant votre véritable identité ou votre
+                                    objectif principal. Cette interdiction inclut le fait de diriger des utilisateurs
+                                    situés dans un pays autre que le vôtre vers du contenu politique, relatif à des
+                                    questions de société ou d'intérêt public, si vous dissimulez ou présentez
+                                    faussement votre pays d'origine ou d'autres informations importantes vous
+                                    concernant. Vous pouvez publier des contenus parodiques ou satiriques, ou encore
+                                    utiliser un pseudonyme. Toutefois, vous devez éviter les contenus susceptibles
+                                    d'induire en erreur les lecteurs sur votre véritable identité.
+                                </p>
+
+                            </li>
+                            <li>
+                                <h3>
+                                    Piratage de compte
+                                </h3>
+                                <p>
+                                    Il est interdit d'accéder au compte d'un autre utilisateur sans son autorisation.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Utilisation de plusieurs comptes
+                                </h3>
+                                <p>
+                                    Il est interdit de créer ou d'utiliser plusieurs comptes dans le but d'échapper à
+                                    nos règles, d'en contourner certaines dispositions ou d'empêcher l'application des
+                                    restrictions auxquelles votre compte est soumis. Par exemple, si votre compte a été
+                                    bloqué par un autre utilisateur ou suspendu pour cause d'abus, ne créez pas de
+                                    compte de remplacement pour des activités similaires.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>
+                                    Contenus à caractère terroriste
+                                </h3>
+                                <p>
+                                    Nous n'autorisons pas les organisations terroristes à utiliser Les Râleuurs, à quelque
+                                    fin que ce soit, y compris pour le recrutement. Les contenus à caractère
+                                    terroriste, tels que la promotion d'actes terroristes, l'incitation à la violence
+                                    ou l'apologie d'attentats terroristes, sont formellement interdits sur Les Râleuurs.
+                                </p>
+                                <p>
+                                    Si vous publiez des contenus liés au terrorisme dans un objectif pédagogique,
+                                    documentaire, scientifique ou artistique, pensez à donner suffisamment
+                                    d'informations à vos visiteurs pour qu'ils comprennent le contexte.
+                                </p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

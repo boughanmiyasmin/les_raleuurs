@@ -1,0 +1,193 @@
+{% extends 'base2.html.twig' %}
+{% block title %}
+    {{ petition.nom}}
+{% endblock %}
+{% block body %}
+    <div class="container" >
+        <div class="col-md-9">
+
+                <div class="">
+                    {#<!-- Load Facebook SDK for JavaScript -->#}
+                    {#<div id="fb-root"></div>#}
+                    {#<script>(function(d, s, id) {#}
+                            {#var js, fjs = d.getElementsByTagName(s)[0];#}
+                            {#if (d.getElementById(id)) return;#}
+                            {#js = d.createElement(s); js.id = id;#}
+                            {#js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.0";#}
+                            {#fjs.parentNode.insertBefore(js, fjs);#}
+                        {#}(document, 'script', 'facebook-jssdk'));</script>#}
+
+                    {#<!-- Your share button code -->#}
+                    {#<div class="fb-share-button"#}
+                         {#data-layout="button_count">#}
+                    {#</div>#}
+
+
+
+                    <script>
+
+                        FB.login(function(response) {
+                            if (response.authResponse) {
+                                console.log('Welcome!  Fetching your information.... ');
+                                FB.api('/me', function(response) {
+                                    console.log('Good to see you, ' + response.name + '.');
+                                });
+                            } else {
+                                console.log('User cancelled login or did not fully authorize.');
+                            }
+                        });
+                    </script>
+
+                    <div class="col-md-2" style="height:300px;width:300px;">
+                         <img src="{{ asset('uploads/brochures/' ~ petition.img) }}" id="p_photo_info" style="height:300px;width:300px;" class="img-responsive img-raised">
+                    </div>
+                    <div class="col-md-7">
+                        <h2 class="deepshd" align="center"> {{ petition.nom }} </h2>
+                        <br>
+                        <br>
+                        <div class="right">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {% if app.user.username != petition.user  %}
+                            <a href="{{ url('petitionuser_new_msg', {id: petition.id})}}" class="btnn">Contactez {{ petition.user }}<span class="arrow"><i class="glyphicon glyphicon-envelope"></i></span></a>
+                                <br />
+                                    <a href="{{ url('contact_new') }}" class="btnn btnn-learn">Signaler cet article<span class="arrow"><i class="glyphicon glyphicon-ban-circle"></i></span></a>
+                                    <br />
+                                    {% endif %}
+                            {% else%}
+                            <a href= "{{ path('fos_user_security_login') }}" class="btnn">Connectez-vous pour contacter le créateur de cette pétition<span class="arrow"><i class="glyphicon glyphicon-envelope"></i></span></a>
+                            <br />
+                                <a href="{{ url('contact_new') }}" class="btnn btnn-learn">Signaler cet article<span class="arrow"><i class="glyphicon glyphicon-ban-circle"></i></span></a>
+                                <br />
+                            {% endif %}
+                            <a href="{{ url('Signature', {id: petition.id}) }}" class="btnn btnn-info">Voir toutes les signatures <span class="arrow"><i class="glyphicon glyphicon-list-alt"></i></span></a>
+                            <br />
+
+                        </div>
+
+                    </div>
+                </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            {% if message == "success" %}
+                <div class="alert alert-success">
+                    <div class="">
+                        <div class="alert-icon">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <b>alerte de réussite:</b> Votre message a été envoyé avec succès
+                    </div>
+                </div>
+            {% endif %}
+            <div class="">
+                <div class="">
+                    <div class="col-md-8">
+                        <br>
+                        <div class="input-group ">
+
+                            <p style="font-family: Times New Roman; font-size: medium"> cette pétition a été créer par "{{ petition.user }}" le {{ petition.cree }} </p>
+
+
+                        </div>
+                        <div>
+                            {{ petition.description|raw }}
+                        </div>
+                        <!-- AddToAny BEGIN -->
+                        <span>Partager cette pétition : </span>
+
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+
+                            <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                            <a class="a2a_button_facebook"></a>
+                            <a class="a2a_button_twitter"></a>
+                            <a class="a2a_button_google_plus"></a>
+                        </div>
+                        <br>
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        <!-- AddToAny END -->
+
+                        <div class="col-md-2"> <a href="{{ url('Petition') }}" class="btn btn-info btn-md">retour</a></div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        <div class="col-md-3 card" style="border: 25px solid #DFECEC;">
+
+
+            <h3>Signez la pétition</h3>
+            <div class="" id="javascriptComponents">
+                <div class="input-group ">
+
+
+                    {{ form_start(form, {'attr': {'id': 'comp-jehb26e6form-wrapper'}}) }}
+                    {% for field in [ 'nom','prenom', 'mail', 'telephone','adresse', 'ville', 'cp']%}
+
+                    <div>{{ form_row(attribute(form, field)) }}</div>
+                    {% endfor %}<br>
+                    {% for field in ['engagement', 'annonyme']%}
+                        {{ form_row(attribute(form, field)) }}
+                    {% endfor %}
+
+
+
+
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+                    <script src="http://code.jquery.com/jquery-1.11.0.min.js" ></script>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $("#comp-jehb26e6form-wrapper").on("submit", function (e) {
+                                e.preventDefault();
+
+
+                                $.ajax({
+                                    type: $(this).attr('method'),
+                                    url: $(this).attr('action'),
+                                    data: $(this).serialize(),
+                                    dataType: 'json'
+
+                                })
+                                $("#id-popup-recommondations").modal("show");
+
+
+                            });
+                        });
+
+
+
+                    </script>
+                    <button style="top: -20px;" type="submit" value="submit"  class="btn btn-info btn-md" id="comp-jehb26e6submit" data-toggle="modal" data-target="#myModal" onclick = "fonction()">Signez</button>
+                    <br>
+                    {{ form_end(form) }}
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

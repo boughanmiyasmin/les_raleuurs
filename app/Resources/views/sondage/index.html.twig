@@ -1,0 +1,133 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <div class="content">
+        <div class="tab-content text-center">
+            <div class="tab-pane active" id="profile">
+                <div class="row profile">
+                    <div class="col-md-2">
+                        <div class="profile-sidebar">
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    Admin
+                                </div>
+                                <div class="profile-usertitle-job">
+
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                            <!--<!-- SIDEBAR BUTTONS -->
+                            <!--<div class="profile-userbuttons">
+                            <!--    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                            <!--    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                            <!--</div>
+                            <!-- END SIDEBAR BUTTONS -->
+                            <!-- SIDEBAR MENU -->
+                            <div class="profile-usermenu">
+                                <div class="sidebar-wrapper">
+                                    <ul class="nav">
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./dashboard.html">
+                                                <i class="material-icons">dashboard</i>
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="{{ path('user_index') }}">
+                                                <i class="material-icons">person</i>
+                                                gérer les utilisateurs
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="{{ path('petition_index') }}">
+                                                <i class="material-icons">content_paste</i>
+                                                gérer les petitions
+                                            </a>
+                                        </li>
+                                        <li class="nav-item active ">
+                                            <a class="nav-link" href="{{ path('sondage_index') }}">
+                                                <i class="material-icons">library_books</i>
+                                                gérer les sondages
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./icons.html">
+                                                <i class="material-icons">bubble_chart</i>
+                                                Icons
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./notifications.html">
+                                                <i class="material-icons">notifications</i>
+                                                Notifications
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END MENU -->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-content">
+                            <div class="card">
+                                <div class="card-header card-header-warning">
+                                    <h4 class="card-title">Liste des sondages</h4>
+                                    <div class="col-md-offset-10"><p class="card-category"><a href="{{ path('sondage_new') }}">Créer un nouveau sondage</a></p></div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                        <tr><th>Id</th>
+
+                                            <th>Auteur</th>
+                                            <th>Image</th>
+                                            {#<th>Theme</th>#}
+                                            <th>Lien</th>
+                                            <th>Titre</th>
+                                            <th>Text</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr></thead>
+                                        <tbody>
+                                        <tr>{% for sondage in sondages %}
+                                        <tr>
+                                            <td>{{ sondage.id }}</td>
+                                            <td>{{ sondage.auteur }}</td>
+                                            {#<td>{{ sondage.theme }}</td>#}
+                                            <td>{% if sondage.image %}Yes{% else %}No{% endif %}</td>
+                                            <td>{{ sondage.lien }}</td>
+                                            <td>{{ (sondage.titre|striptags|slice(0, 100) ~ '...') }}</td>
+                                            <td>{{ (sondage.text|striptags|slice(0, 200) ~ '...') }}</td>
+                                            <td>{{ sondage.date }}</td>
+                                            <td>
+                                                <a class="btn btn-success btn-link btn-sm" href="{{ path('sondage_show', { 'id': sondage.id }) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
+
+                                                <a class="btn btn-danger btn-link btn-sm" href="{{ path('sondage_edit', { 'id': sondage.id }) }}"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <center>
+
+                    </center>
+                    <br>
+                    <br>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

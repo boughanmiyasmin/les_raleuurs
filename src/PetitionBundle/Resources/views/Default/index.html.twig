@@ -1,0 +1,125 @@
+{% extends 'base1.html.twig' %}
+
+
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div>
+    <div class="header header-filter" id="slider" style= "background-image: url('{{ asset('bundles/framework/assets/img/16272382.jpg') }}');background-size: cover">
+    </div>
+<div class="main main-raised well" style="background-image: url('{{ asset('bundles/framework/assets/img/') }}');background-size: cover;">
+    <div class="section section-basic" style="top: 0px">
+    <div class="container-fluid">
+
+{% block recherche %}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1 " style="bottom: 50px"><div class="inner">
+                    <div class="breadcrumb clearfix cars " style="background-color: #e2e3e5;"  >
+                        <ul class="nav navbar-nav" style="padding-left: 5px">
+                            <a href="{{ url('homepage') }}" >Accueil ></a>
+                            <a href="{{ url('Petition') }}">Pétition</a> <br>
+
+                        </ul>
+                    </div>
+                </div></div>
+
+            <div class="col-md-4 col-md-offset-1 left" style="bottom: 100px; ">
+                    {{ form_start(form, { attr: {class: 'form-inline',style:'padding-top:30px ' } }) }}
+                   {{ form_widget(form.Rechercher, {attr : {placeholder:'Rechercher une petition'}}) }}
+
+                    <button type="submit" class="btn btn-info btn-round">
+                        <i class="material-icons">search</i>Rechercher
+                    </button>
+                    {{ form_end(form) }}
+                    <br>
+                </div>
+        </div>
+
+    {% endblock %}
+
+
+    <div class="container-fluid" style="">
+
+
+
+        <div class="col-md-2 col-md-offset-1">
+            <div class="profile-sidebar card" style="top: -100px;margin-bottom: 10px">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <!-- END SIDEBAR USER TITLE -->
+                <!--<!-- SIDEBAR BUTTONS -->
+                <!--<div class="profile-userbuttons">
+                <!--    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                <!--    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                <!--</div>
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav" data-tabs="tabs">
+                        <li class="">
+                            <a href="{{ url('Petition') }}">
+                                Toutes nos pétitions
+                            </a>
+                        </li>
+
+                        {% for theme in themes %}
+                            <li class="">
+                                <a href="{{ url('Petition_theme' ,{theme: theme.id}) }}">
+                                    {{ theme.theme }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+
+            <div class="col-md-8" style="display: table; top: -100px">
+                {% if petition|length == 0 %}
+                    <p> Soyez le premier à créer une pétition sur ce sujet</p>
+                    {% endif %}
+                {% for p in petition %}
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+                    <div class="card card-nav-tabs" style="display: table-cell;top: -46px">
+                        <div class="content">
+                            <div class="tab-content text-center">
+                                <div class="tab-pane active" id="profile" >
+                                    <div class="row">
+                                          <div class="">{{ p.Cree }}</div>
+                                    </div>
+                                    <div class="row">
+                                           <div class="col-md-12 col-sm-3" id="team-avatar"><img style="width: 500px; height: 250px" class="img-responsive" src="{{ asset('uploads/brochures/' ~ p.img) }}"></div>
+                                           <div id="box_p" class="col-md-12 col-sm-9 col-xs-12" style="left: 10px ; ">
+                                               <div> <a href="{{ url('info_petition', {id: p.id}) }}" style=" text-decoration: none; color: #00acc1;" ><h4 style="">{{ p.Nom }}</h4></a></div>
+                                               <br>
+                                               <div align="left"  style="left: 20px">{{ (p.description|striptags|slice(0, 200) ~ '...')|raw}} <a href="{{ url('info_petition', {id: p.id}) }}">Lire la suite</a></div>
+                                               <div ></div>
+
+                                           </div></div>
+                                    <div class="row">
+                                        <div class="right" style="padding: 10px">
+                                            <a href="{{ url('info_petition', {id: p.id}) }}" class="btnn" >signez cette petition<span class="arrow"><i class="glyphicon glyphicon-pencil"></i> </span></a></div>
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+
+    </div>
+    <div ></div>
+        <div class="container " style="align-content: center">{{ knp_pagination_render(petition) }} </div></div></div></div></div></div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div style="height: 60px;width: 350px;" class="col-md-offset-7">
+        <div class="col-md-8 col-xs-6" style="top:10px"><label class="animation" style=" color: black">Votre pétition pas à pas  | <i class="glyphicon glyphicon-hand-right"></i> </label></div><div style="" class="col-md-1 col-md-offset-2 col-xs-4 col-xs-offset-2"> <a style="" id="info_new" class="button" href=""> <i class="glyphicon glyphicon-plus"></i> </a></div>
+
+    </div>
+    <script>
+        $('#info_new').on('click', function(){
+            $('.wrap, a').toggleClass('active');
+
+            return false;
+        });
+    </script>
+    <div class="">
+
+
+
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2 card">
+                <div id="p-title"><h1>Lancer une pétition:</h1></div>
+                <label style="color: red">les champs avec (*) doivent être remplis</label>
+                {{ form_start(form) }}
+                <label style="color: black "><br><h4>Insérez le titre de votre pétition <label style="color: red">*</label> : </h4></label>
+                {{ form_widget(form.nom) }}
+
+                <label style="color: black "><h4>Renseignez un destinataire  <label style="color: red">*</label> :</h4></label>
+                {{ form_widget(form.n_p) }}
+
+                <label style="color: black "><h4>Présentez l'objet de votre pétition  <label style="color: red">*</label> :</h4></label>
+                {{ form_widget(form.description) }}
+
+                <label style="color: black "><h4>insérez une image  :</h4></label>
+                {{ form_widget(form.img, { 'attr': {'class': 'btn btn-default btn-file', 'value': 'photo de petition'} }) }}
+
+                <label style="color: black "><br><h4>Indiquez le theme  <label style="color: red">*</label> :</h4></label>
+
+                {{ form_widget(form.theme) }}
+
+
+                <div class="col-md-2 col-md-offset-5"><button style="top: -20px" type="submit" value="Create" class="btn btn-info btn-md"> créer la pétition</button></div>
+
+                {{ form_end(form) }}</div>
+        </div>
+        <a href="{{ path('petitionuser') }}" class="btn btn-info btn-md">retour</a>
+    </div>
+
+    <div class='wrap' style="border: 25px solid #DFECEC;">
+        <div class='content'>
+            <h2 class="col-md-offset-5">Lancez votre pétition</h2>
+            <div class="page-header"></div>
+            <div id="accordion" role="tablist">
+                <div class="">
+                    <div class="card-header" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                            <a style="font-size: 20px; font-weight: bold; " class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <i class="glyphicon glyphicon-ok"></i> Rédigez votre pétition en suivant ces conseils
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <p style="font-size: 17px;">Y’a-t-il quelque chose dans votre communauté, votre ville ou votre pays que vous voulez voir changer ? Les râleuurs.org sera votre porte-parole pour mobiliser des soutiens et créer le changement. On vous guidera pas à pas pour créer vos propres pétitions et vous assurer des victoires au quotidien. </p>
+                            <h4>Une pétition doit :</h4>
+                            <li style="font-size: 17px;">Avoir un titre percutant ;</li>
+                            <li style="font-size: 17px;">Etre présentée de façon claire et rapide à lire ;</li>
+                            <li style="font-size: 17px;">Etre ciblée : il faut savoir à qui s’adresse la pétition (femmes, citoyens, jeunes, chômeurs, retraités, etc.).</li>
+                            <li style="font-size: 17px;">Choisissez une image « accrocheuse »</li>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="card-header" role="tab" id="headingTwo">
+                        <h5 class="mb-0">
+                            <a style="font-size: 20px; font-weight: bold; " class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <i class="glyphicon glyphicon-ok"></i> En quoi le choix d’un bon titre est important
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <li style="font-size: 17px;">Sans lui, votre pétition aura beau être de grande qualité, et avoir une cause très noble,  elle  ne sera pas lue ; </li>
+                            <li style="font-size: 17px;">Il permet de valoriser n’importe quel contenu : une pétition ayant  un contenu de qualité moyenne pourra générer un trafic important grâce à un bon titre, il incitera les lecteurs à se mobiliser </li>
+                            <li style="font-size: 17px;">Les titres les plus percutants sont ceux sont ceux auxquels vous mettez le plus de cœur ; n’hésitez pas à attirer l’attention des gens  en mettant  de l’émotion et de l’urgence dans vos titres </li>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="card-header" role="tab" id="headingThree">
+                        <h5 class="mb-0">
+                            <a style="font-size: 20px; font-weight: bold; " class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <i class="glyphicon glyphicon-ok"></i> Choisissez une image accrocheuse
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <p style="font-size: 17px;">Avec votre titre, l’image de votre pétition est la première chose que les internautes verront sur votre page mais aussi sur les réseaux sociaux. Il faut donc qu’elle soit choisie avec soin.</p>
+                            <h4 style="font-weight: bold;">Elle doit générer de l’émotion</h4>
+                            <p style="font-size: 17px;">Une image captivante à un impact émotionnel  sur votre pétition et a la capacité de parler pour vous. En général, les photos de personnes ou d’animaux fonctionnent bien.</p>
+                            <h4 style="font-weight: bold;">Vous n’avez pas d’image ? Utilisez Internet</h4>
+                            <p style="font-size: 17px;">Les meilleures photos pour illustrer votre pétition sont les vôtre. Sinon vous pouvez trouver des photos sur Internet pour illustrer votre pétition en utilisant FlickR ou Google Image. Assurez vous juste que ces photos sont libres de droit.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="card-header" role="tab" id="headingFour">
+                        <h5 class="mb-0">
+                            <a style="font-size: 20px; font-weight: bold; " class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <i class="glyphicon glyphicon-ok"></i> Vos affirmations doivent êtres claires et concises
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <p style="font-size: 17px;">Une fois que vous savez ce dont vous avez besoin pour la pétition, vous devez écrire une affirmation qui encadre vos objectifs. Elle doit être précise, concise et informative. Il n'est pas nécessaire d'y inclure tous les objectifs de votre cause, mais elle doit présenter aux gens qui pourraient vouloir la signer l'idée forte de votre cause .</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="card-header" role="tab" id="headingfive">
+                        <h5 class="mb-0">
+                            <a style="font-size: 20px; font-weight: bold; " class="collapsed" data-toggle="collapse" href="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
+                                <i class="glyphicon glyphicon-ok"></i> Vérifiez à qui s'adresse la pétition.
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapsefive" class="collapse" role="tabpanel" aria-labelledby="headingfive" data-parent="#accordion">
+                        <div class="card-body">
+                            <p style="font-size: 17px;">Vous devez vous demander qui va mettre en place le changement que vous demandez. Votre mairie, votre bureau,  un représentant régional, national ou ministériel, une association …Soyez claires sur votre cible et d définissez votre décideur.  </p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div></div></div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <div class="content">
+        <div class="tab-content text-center">
+            <div class="tab-pane active" id="profile">
+                <div class="row profile">
+                    <div class="col-md-2">
+                        <div class="profile-sidebar">
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    Admin
+                                </div>
+                                <div class="profile-usertitle-job">
+
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                            <!--<!-- SIDEBAR BUTTONS -->
+                            <!--<div class="profile-userbuttons">
+                            <!--    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                            <!--    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                            <!--</div>
+                            <!-- END SIDEBAR BUTTONS -->
+                            <!-- SIDEBAR MENU -->
+                            <div class="profile-usermenu">
+                                <div class="sidebar-wrapper">
+                                    <ul class="nav">
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./dashboard.html">
+                                                <i class="material-icons">dashboard</i>
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="{{ path('user_index') }}">
+                                                <i class="material-icons">person</i>
+                                                gérer les utilisateurs
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="{{ path('petition_index') }}">
+                                                <i class="material-icons">content_paste</i>
+                                                gérer les petitions
+                                            </a>
+                                        </li>
+                                        <li class="nav-item active ">
+                                            <a class="nav-link" href="{{ path('sondage_index') }}">
+                                                <i class="material-icons">library_books</i>
+                                                gérer les sondages
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./icons.html">
+                                                <i class="material-icons">bubble_chart</i>
+                                                Icons
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="./notifications.html">
+                                                <i class="material-icons">notifications</i>
+                                                Notifications
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END MENU -->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-content">
+                            <div class=""><h1>Lancer un sondage:</h1><br></div>
+                            <div class="row">
+
+                                <div class="col-md-12 card">{{ form_start(form) }}
+                                    <label style="color: black "><br><h4>Insérez le titre de votre Sondage:</h4></label>
+                                    {{ form_widget(form.titre) }}
+                                    <label style="color: black "><br><h4>Qui est l'auteur du sondage:</h4></label>
+                                    {{ form_widget(form.auteur) }}
+
+                                    <label style="color: black "><h4>Inserez un lien : </h4> </label>(Si il y en a un)
+                                    {{ form_widget(form.lien) }}
+                                    <label style="color: black "><br><h4>Indiquez le théme:</h4></label>
+                                    {{ form_widget(form.theme) }}
+
+                                    <label style="color: black "><h4>insérez une image:</h4></label>
+                                    {{ form_widget(form.image, { 'attr': {'class': 'btn btn-default btn-file', 'value': 'photo de sondage'} }) }}
+                                    <br>
+                                    <label style="color: black "><h4>Présentez l'objet de votre Sondage et posez votre question:</h4></label>
+                                    {{ form_widget(form.text) }}
+
+                                    <br>
+                                    <br>
+                                    <label style="color: black ">
+
+                                        <h4>Proposition de réponses:</h4></label>
+                                    <div class="container">
+
+                                    </div><div class="col-md-6">
+                                        {{ form_widget(form.question1, { 'attr':{'placeholder': 'Réponse 1*'}} ) }}
+                                        {{ form_widget(form.question2, { 'attr':{'placeholder': 'Réponse 2*'}} ) }}
+                                        {{ form_widget(form.question3, { 'attr':{'placeholder': 'Réponse 3'}} ) }}
+                                        {{ form_widget(form.question4, { 'attr':{'placeholder': 'Réponse 4'}} ) }}
+                                        {{ form_widget(form.question5, { 'attr':{'placeholder': 'Réponse 5'}} ) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_widget(form.question6, { 'attr':{'placeholder': 'Réponse 6'}} ) }}
+                                        {{ form_widget(form.question7, { 'attr':{'placeholder': 'Réponse 7'}} ) }}
+                                        {{ form_widget(form.question8, { 'attr':{'placeholder': 'Réponse 8'}} ) }}
+                                        {{ form_widget(form.question9, { 'attr':{'placeholder': 'Réponse 9'}} ) }}
+                                        {{ form_widget(form.question10, { 'attr':{'placeholder': 'Réponse 10'}} ) }}
+                                    </div>
+                                    <div class="col-md-offset-5"> <button type="submit" value="Create" class="btn btn-info btn-md" style="top: -20px"> créer le sondage</button></div>{{ form_end(form) }}
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-2"> <a href="{{ path('sondage_index') }}" class="btn btn-info btn-md" >retour</a></div>
+
+                        </div>
+
+                    </div>
+                    <center>
+
+                    </center>
+                    <br>
+                    <br>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

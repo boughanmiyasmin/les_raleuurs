@@ -1,0 +1,23 @@
+
+{% block body %}
+
+
+    <div class="pull-right">
+
+        <br>
+    </div>
+    {% for chart in charts %}
+
+
+    <script type="text/javascript">
+
+
+            {{ chart(chart) }}
+
+    </script>
+
+    {% endfor %}
+    
+
+
+{% endblock %}

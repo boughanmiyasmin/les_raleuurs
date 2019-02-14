@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sondage</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sondage.id }}</td>
+            </tr>
+            <tr>
+                <th>Iduser</th>
+                <td>{{ sondage.User }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ sondage.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Theme</th>
+                <td>{{ sondage.theme }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ sondage.image }}</td>
+            </tr>
+            <tr>
+                <th>Lien</th>
+                <td>{{ sondage.lien }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ sondage.titre }}</td>
+            </tr>
+            <tr>
+                <th>Text</th>
+                <td>{{ sondage.text }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ sondage.date }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sondageuser') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('sondage_edit', { 'id': sondage.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

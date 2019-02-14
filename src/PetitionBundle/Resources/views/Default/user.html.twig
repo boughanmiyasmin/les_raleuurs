@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="pull-right">
+        {{ form_start(form, { attr: {class: 'form-inline' } }) }}
+        {{ form_widget(form.Rechercher, {attr : {placeholder:'Rechercher une pétition'}}) }}
+        <button type="submit" class="btn">Rechercher</button>
+        {{ form_end(form) }}
+        <br>
+    </div>
+    <div class="profile-content">
+
+        <div class="card-header card-header-warning">
+            <h4 class="card-title">Liste des petitions de {{ app.user.username }}</h4>
+            <div class="col-md-offset-10"><p class="card-category"><a href="{{ path('petitionuser_new') }}">Créer une nouvelle petition</a></p></div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover">
+                <thead class="text-warning">
+                <tr>
+                    <th>Nom</th>
+                    <th>Cree</th>
+                    <th>N_p</th>
+                    <th>Actions</th>
+                </tr></thead>
+                <tbody>
+                <tr>{% for p in petition %}
+                <tr>
+                    <td><a href="{{ path('petition_show', { 'id': p.id }) }}">{{ (p.nom|striptags|slice(0, 200) ~ '...') }}</a></td>
+                    <td>{{ p.cree }}</td>
+                    <td>{{ (p.np|striptags|slice(0, 200) ~ '...') }}</td>
+                    <td>
+                        <a class="btn btn-success btn-link btn-sm" href="{{ path('petitionuser_show', { 'id': p.id }) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
+
+                        <a class="btn btn-warning btn-link btn-sm" href="{{ path('petitionuser_edit', { 'id': p.id }) }}"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                        <a class="btn btn-danger btn-link btn-sm" href="{{ path('petitionuser_delete', { 'id': p.id }) }}"><i class="glyphicon glyphicon-trash"></i></a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

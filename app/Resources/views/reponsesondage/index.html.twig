@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reponsesondages list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Mail</th>
+                <th>Telephone</th>
+                <th>Ville</th>
+                <th>Cp</th>
+                <th>Age</th>
+                <th>Profession</th>
+                <th>Message</th>
+                <th>Engagement</th>
+                <th>Reponse1</th>
+                <th>Reponse2</th>
+                <th>Reponse3</th>
+                <th>Reponse4</th>
+                <th>Reponse5</th>
+                <th>Reponse6</th>
+                <th>Reponse7</th>
+                <th>Reponse8</th>
+                <th>Reponse9</th>
+                <th>Reponse10</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponseSondage in reponseSondages %}
+            <tr>
+                <td><a href="{{ path('reponsesondage_show', { 'id': reponseSondage.id }) }}">{{ reponseSondage.id }}</a></td>
+                <td>{{ reponseSondage.prenom }}</td>
+                <td>{{ reponseSondage.nom }}</td>
+                <td>{{ reponseSondage.mail }}</td>
+                <td>{{ reponseSondage.telephone }}</td>
+                <td>{{ reponseSondage.ville }}</td>
+                <td>{{ reponseSondage.cp }}</td>
+                <td>{{ reponseSondage.age }}</td>
+                <td>{{ reponseSondage.profession }}</td>
+                <td>{{ reponseSondage.message }}</td>
+                <td>{% if reponseSondage.engagement %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse1 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse2 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse3 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse4 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse5 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse6 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse7 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse8 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse9 %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reponseSondage.reponse10 %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('reponsesondage_show', { 'id': reponseSondage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('reponsesondage_edit', { 'id': reponseSondage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reponsesondage_new') }}">Create a new reponseSondage</a>
+        </li>
+    </ul>
+{% endblock %}

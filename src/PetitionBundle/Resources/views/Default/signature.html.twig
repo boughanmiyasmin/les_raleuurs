@@ -1,0 +1,102 @@
+{% extends 'base_login.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+<div class="col-md-8 col-md-offset-2 well">
+    <h1>{{ petition_name }} </h1>
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED")  and app.user.username == user  %}
+
+
+    <div class="profile-content">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste des signatures</h4>
+                <div class="col-md-offset-10"><p class="card-category">{% if signature != null %}
+                            <a href="{{ url('Signature_ex', {id: petition_id}) }}">Telecharger la liste des signatures</a>
+                        {% endif %}</p></div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                        <thead class="table-info">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom </th>
+                            <th>Mail</th>
+                            <th>Telephone</th>
+                            <th>Ville</th>
+                            <th>Adresse</th>
+                            <th>Code postal</th>
+                            <th>Age</th>
+                            <th>Profession</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                            {% for p in signature %}
+
+                            <td>{{ p.nom }}</td>
+                            <td>{{ p.prenom }}</td>
+                            <td>{{ p.mail }}</td>
+                            <td>{{ p.telephone }}</td>
+                            <td>{{ p.ville }}</td>
+                            <td>{{ p.adresse }}</td>
+                            <td>{{ p.cp }}</td>
+                            <td>{{ p.age }}</td>
+                            <td>{{ p.profession }}</td>
+
+
+
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+    {% else %}
+
+
+
+        <div class="profile-content">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste des signatures</h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-info">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom </th>
+                        <th>Ville</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                        {% for p in signature %}
+
+                        {% if p.annonyme == 1 %}
+                        <td>{{ p.nom }}</td>
+                        <td>{{ p.prenom }}</td>
+                        <td>{{ p.ville }}</td>{% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endif %}
+
+
+</div>
+
+{% endblock %}
+

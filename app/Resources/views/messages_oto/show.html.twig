@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Messages_oto</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ messages_OtO.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ messages_OtO.content }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if messages_OtO.createdAt %}{{ messages_OtO.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Readat</th>
+                <td>{% if messages_OtO.readAt %}{{ messages_OtO.readAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('messages_oto_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('messages_oto_edit', { 'id': messages_OtO.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

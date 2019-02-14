@@ -1,0 +1,439 @@
+{% extends 'base1.html.twig' %}
+
+
+
+{% block body %}
+
+<div class="wrapper">
+    <div class="header" > <!--style= " height: 600px;background-image: url('')">-->
+        <!-- Carousel Card -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:500" rel="stylesheet">
+        <script>!function(e){"undefined"==typeof module?this.charming=e:module.exports=e}(function(e,n){"use strict";n=n||{};var t=n.tagName||"span",o=null!=n.classPrefix?n.classPrefix:"char",r=1,a=function(e){for(var n=e.parentNode,a=e.nodeValue,c=a.length,l=-1;++l<c;){var d=document.createElement(t);o&&(d.className=o+r,r++),d.appendChild(document.createTextNode(a[l])),n.insertBefore(d,e)}n.removeChild(e)};return function c(e){for(var n=[].slice.call(e.childNodes),t=n.length,o=-1;++o<t;)c(n[o]);e.nodeType===Node.TEXT_NODE&&a(e)}(e),e});
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+        <section style="padding-top: 0px;">
+
+            <div class="swiper-container slideshow">
+
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide slide" id="slider">
+                        <div class="slide-image" style="background-image: url('{{ asset('bundles/framework/img/16272382-slider.jpg') }}'); "></div>
+                        <span class="slide-title" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-size: 6vw;">Les Râleuurs !</span>
+
+                    </div>
+
+                    <div class="swiper-slide slide" id="slider">
+                        <div class="slide-image" style="background-image: url('{{ asset('bundles/framework/assets/img/petition1.jpeg')}}'); background-position: 50% 50%"></div>
+
+                        <a href="{{ url('info_petition', {id: petitions[2].id}) }}" > <span class="slide-title" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">{{ petitions[2].nom }}</span></a>
+                    </div>
+
+                    <div class="swiper-slide slide" id="slider">
+                        <div class="slide-image" style="background-image: url('{{ asset('uploads/brochures/' ~ petitions[1].img) }}'); background-position: 50% 50%"></div>
+                        <a href="{{ url('info_petition', {id: petitions[1].id}) }}" > <span class="slide-title" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">{{ petitions[1].nom }}</span></a>
+                    </div>
+
+                    <!--         <div class="swiper-slide slide">
+                        <div class="slide-imageswiper-lazy" data-background="https://images.unsplash.com/photo-1538083024336-555cf8943ddc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=66b476a51b19889e13182c0e4827af18&auto=format&fit=crop&w=1950&q=80">
+                        </div>
+                        </div>
+                        <span class="slide-title">Exotic places</span>
+                      </div>
+
+                      <div class="swiper-slide slide">
+                        <div class="slide-image swiper-lazy" data-background="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e07d2457879a4e15577ec75a31023e47&auto=format&fit=crop&w=2134&q=80">
+                        </div>
+                        <span class="slide-title">Meet ocean</span>
+                      </div>
+
+                      <div class="swiper-slide slide">
+                        <div class="slide-image swiper-lazy" data-background="https://images.unsplash.com/photo-1482059470115-0aadd6bf6834?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=267bba9a4e280ec64388fe8fb01e9d1b&auto=format&fit=crop&w=1950&q=80">
+                        </div>
+                        <span class="slide-title">Around the world</span>
+                      </div> -->
+
+                </div>
+
+
+
+                <div class="slideshow-navigation">
+                    <div class="slideshow-navigation-button prev"><span class="fas fa-chevron-left"></span></div>
+                    <div class="slideshow-navigation-button next"><span class="fas fa-chevron-right"></span></div>
+                </div>
+
+            </div>
+
+        </section>
+        <script>
+            // The Slideshow class.
+            class Slideshow {
+                constructor(el) {
+
+                    this.DOM = {el: el};
+
+                    this.config = {
+                        slideshow: {
+                            delay: 10000,
+                            pagination: {
+                                duration: 3,
+                            }
+                        }
+                    };
+
+                    // Set the slideshow
+                    this.init();
+
+                }
+                init() {
+
+                    var self = this;
+
+                    // Charmed title
+                    this.DOM.slideTitle = this.DOM.el.querySelectorAll('.slide-title');
+                    this.DOM.slideTitle.forEach((slideTitle) => {
+                        charming(slideTitle);
+                    });
+
+                    // Set the slider
+                    this.slideshow = new Swiper (this.DOM.el, {
+
+                        loop: true,
+                        autoplay: {
+                            delay: this.config.slideshow.delay,
+                            disableOnInteraction: false,
+                        },
+                        speed: 500,
+                        preloadImages: true,
+                        updateOnImagesReady: true,
+
+                        // lazy: true,
+                        // preloadImages: false,
+
+                        pagination: {
+                            el: '.slideshow-pagination',
+                            clickable: true,
+                            bulletClass: 'slideshow-pagination-item',
+                            bulletActiveClass: 'active',
+                            clickableClass: 'slideshow-pagination-clickable',
+                            modifierClass: 'slideshow-pagination-',
+                            renderBullet: function (index, className) {
+
+                                var slideIndex = index,
+                                    number = (index <= 8) ? '0' + (slideIndex + 1) : (slideIndex + 1);
+
+                                var paginationItem = '<span class="slideshow-pagination-item">';
+                                paginationItem += '<span class="pagination-number">' + number + '</span>';
+                                paginationItem = (index <= 8) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
+                                paginationItem += '</span>';
+
+                                return paginationItem;
+
+                            },
+                        },
+
+                        // Navigation arrows
+                        navigation: {
+                            nextEl: '.slideshow-navigation-button.next',
+                            prevEl: '.slideshow-navigation-button.prev',
+                        },
+
+                        // And if we need scrollbar
+                        scrollbar: {
+                            el: '.swiper-scrollbar',
+                        },
+
+                        on: {
+                            init: function() {
+                                self.animate('next');
+                            },
+                        }
+
+                    });
+
+                    // Init/Bind events.
+                    this.initEvents();
+
+                }
+                initEvents() {
+
+                    this.slideshow.on('paginationUpdate', (swiper, paginationEl) => this.animatePagination(swiper, paginationEl));
+                    //this.slideshow.on('paginationRender', (swiper, paginationEl) => this.animatePagination());
+
+                    this.slideshow.on('slideNextTransitionStart', () => this.animate('next'));
+
+                    this.slideshow.on('slidePrevTransitionStart', () => this.animate('prev'));
+
+                }
+                animate(direction = 'next') {
+
+                    // Get the active slide
+                    this.DOM.activeSlide = this.DOM.el.querySelector('.swiper-slide-active'),
+                        this.DOM.activeSlideImg = this.DOM.activeSlide.querySelector('.slide-image'),
+                        this.DOM.activeSlideTitle = this.DOM.activeSlide.querySelector('.slide-title'),
+                        this.DOM.activeSlideTitleLetters = this.DOM.activeSlideTitle.querySelectorAll('span');
+
+                    // Reverse if prev
+                    this.DOM.activeSlideTitleLetters = direction === "next" ? this.DOM.activeSlideTitleLetters : [].slice.call(this.DOM.activeSlideTitleLetters).reverse();
+
+                    // Get old slide
+                    this.DOM.oldSlide = direction === "next" ? this.DOM.el.querySelector('.swiper-slide-prev') : this.DOM.el.querySelector('.swiper-slide-next');
+                    if (this.DOM.oldSlide) {
+                        // Get parts
+                        this.DOM.oldSlideTitle = this.DOM.oldSlide.querySelector('.slide-title'),
+                            this.DOM.oldSlideTitleLetters = this.DOM.oldSlideTitle.querySelectorAll('span');
+                        // Animate
+                        this.DOM.oldSlideTitleLetters.forEach((letter,pos) => {
+                            TweenMax.to(letter, .3, {
+                                ease: Quart.easeIn,
+                                delay: (this.DOM.oldSlideTitleLetters.length-pos-1)*.04,
+                                y: '50%',
+                                opacity: 0
+                            });
+                        });
+                    }
+
+                    // Animate title
+                    this.DOM.activeSlideTitleLetters.forEach((letter,pos) => {
+                        TweenMax.to(letter, .6, {
+                            ease: Back.easeOut,
+                            delay: pos*.05,
+                            startAt: {y: '50%', opacity: 0},
+                            y: '0%',
+                            opacity: 1
+                        });
+                    });
+
+                    // Animate background
+                    TweenMax.to(this.DOM.activeSlideImg, 1.5, {
+                        ease: Expo.easeOut,
+                        startAt: {x: direction === 'next' ? 200 : -200},
+                        x: 0,
+                    });
+
+                    //this.animatePagination()
+
+                }
+                animatePagination(swiper, paginationEl) {
+
+                    // Animate pagination
+                    this.DOM.paginationItemsLoader = paginationEl.querySelectorAll('.pagination-separator-loader');
+                    this.DOM.activePaginationItem = paginationEl.querySelector('.slideshow-pagination-item.active');
+                    this.DOM.activePaginationItemLoader = this.DOM.activePaginationItem.querySelector('.pagination-separator-loader');
+
+                    console.log(swiper.pagination);
+                    // console.log(swiper.activeIndex);
+
+                    // Reset and animate
+                    TweenMax.set(this.DOM.paginationItemsLoader, {scaleX: 0});
+                    TweenMax.to(this.DOM.activePaginationItemLoader, this.config.slideshow.pagination.duration, {
+                        startAt: {scaleX: 0},
+                        scaleX: 1,
+                    });
+
+
+                }
+
+            }
+
+            const slideshow = new Slideshow(document.querySelector('.slideshow'));
+
+        </script>
+        <!-- End Carousel Card -->
+
+
+
+<div style="padding: 30px">
+    <div class="container-fluid well" style="padding: 30px">
+        <div style="padding-top: 20px" class="">
+            <div class="" >
+
+
+
+                <div class="row">
+                    <center><img id="logo" style="" src="{{ asset('bundles/framework/img/logo_w.png')}}"></center>
+                </div>
+                <div class="row">
+               <center><h2 ></h2></center></div>
+<br>
+            <div class=" well col-container" style="display: table; width: 100%">
+                <div class="col-sm-12 col-xs-12 col-md-6" style="display: table-cell;" >
+                    <div class="" style="">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <center><h2>Lancez votre pétition</h2></center><div style="display: table-cell; padding: 16px;"> <p style=" font-size: 16px;font-weight: 300;letter-spacing: 0.5px;"><br> Y’a-t-il quelque chose dans votre communauté, votre ville ou votre pays que vous voulez voir changer ? Les râleuurs.org sera votre porte-parole pour mobiliser des soutiens et créer le changement. On vous guidera pas à pas pour créer vos propres pétitions et vous assurer des victoires au quotidien.</p><a href="{{ path('petitionuser_new') }}" class="btn btn-info btn-round" >Lancez votre petition | <i class="glyphicon glyphicon-pencil"></i></a></div>
+                        {% else %}
+                    <center><h2>Lancez votre pétition</h2></center><div style="display: table-cell; padding: 16px;"><p style=" font-size: 16px;font-weight: 300;letter-spacing: 0.5px;"><br> Y’a-t-il quelque chose dans votre communauté, votre ville ou votre pays que vous voulez voir changer ? Les râleuurs.org sera votre porte-parole pour mobiliser des soutiens et créer le changement. On vous guidera pas à pas pour créer vos propres pétitions et vous assurer des victoires au quotidien.</p><a href="{{ path('fos_user_security_login') }}" class="btn btn-info btn-round" >Lancez votre petition | <i class="glyphicon glyphicon-pencil"></i></a></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12 col-md-6" style="display: table-cell;" >
+                    <div class="" style="" >
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <center><h2>Lancez votre Sondage</h2></center><div style="display: table-cell; padding: 16px;"><p style=" font-size: 16px;font-weight: 300;letter-spacing: 0.5px;"><br>Créez facilement et rapidement des questionnaires en ligne. Si vous n’avez pas encore de compte Les Raleuurs, inscrivez-vous gratuitement et vous pourrez créer votre questionnaire en ligne en quelques minutes seulement.</p> <a class="btn btn-info btn-round"  href="{{ path('sondageuser_new') }}">Lancez votre Sondage | <i class="glyphicon glyphicon-pencil"></i> </a></div>
+                        {% else %}
+                            <center><h2>Lancez votre Sondage</h2></center><div style="display: table-cell; padding: 16px;"><p style=" font-size: 16px;font-weight: 300;letter-spacing: 0.5px;"><br>Créez facilement et rapidement des questionnaires en ligne. Si vous n’avez pas encore de compte Les Raleuurs, inscrivez-vous gratuitement et vous pourrez créer votre questionnaire en ligne en quelques minutes seulement.</p> <a class="btn btn-info btn-round"  href="{{ path('fos_user_security_login') }}">Lancez votre Sondage | <i class="glyphicon glyphicon-pencil"></i></a></div>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+                <!-- //end row -->
+
+
+        <div class="">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-lg-8" style="padding-bottom: 20px ">
+                        <h3 class="heading-large">Les pétitions les plus populaires</h3>
+                        {% for i in 0..3 %}
+                            <div class="col-md-12" style="padding: 5px;">
+                                <div class="card" style="margin: 5px" >
+                                    <div class="col-md-6 col-xs-2 col-sm-4">
+                                        <div class="team-members" style="padding: 0px">
+                                            <div class="" id="team-avatar">
+                                                <center><img style="width: 360px; height:240px; max-height: 240px; padding-top: 20px" class="img-responsive team-avatar" src="{{ asset('uploads/brochures/' ~ petition_best[i].petition.img) }}" alt="">
+                                                </center></div>
+                                        </div></div>
+                                    <div class="col-md-6 col-sm-8 col-xs-12"> <div class="card-body" style=" padding: 10px">
+                                            <span class="badge badge-danger faa-horizontal animated" style="background-color: red;">Nouveau</span><br>
+                                            <a style="height: 100px" href="{{ url('info_petition', {id: petition_best[i].petition.id}) }}"><h4 style="color: black; font-size: 1.8em ;font-family:'Times New Roman', Times, serif">{{ petition_best[i].petition.nom }}</h4></a>
+                                            <p class="card-text"><small class="text-time"><em>{{ petition_best[i].petition.cree }}</em></small></p>
+                                            <div align="left"  style="left: 20px">{{ (petition_best[i].petition.description|striptags|slice(0, 200) ~ '...')|raw}} <a href="{{ url('info_petition', {id: petition_best[i].petition.id}) }}">Lire la suite</a></div>
+                                            <div class="right" style="padding: 10px"> <a style="" id="s_btn" class="btn btn-info btn-round"  href="{{ url('info_petition', {id: petition_best[i].petition.id}) }}">Je signe | <i class="glyphicon glyphicon-pencil"></i></a></div>
+                                        </div></div>
+
+
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-4 col-md-12"><aside class="side-bar" style="top: -7px;">
+                            <ul class="nav nav-tabs" role="tablist" id="myTab">
+                                <li class="nav-item "> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">A La Une</a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#victoires" role="tab">Victoires</a> </li>
+                            </ul>
+                            <br>
+
+
+                            <!-- Tab panes -->
+                            <div class="tab-content sidebar-tabing" id="nav-tabContent">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                    {% set petitions = petitions|reverse %}
+                                    {% for i in 0..3 %}
+                                        <div class="row">
+                                            <div class="media" style="height: 147px">
+                                                <div class="col-md-4">
+                                                    <a href="#"> <img class="d-flex mr-3" src="{{ asset('uploads/brochures/' ~ petitions[i].img) }}" alt="Generic placeholder image"></a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="media-body">
+                                                        <div class="news-title">
+                                                            <h2 class="title-small" ><a href="{{ url('info_petition', {id: petitions[i].id}) }}">{{ petitions[i].nom }}</a></h2>
+                                                        </div>
+                                                        <div class="news-auther"><span class="time"><em>{{ petitions[i].cree }}</em></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="tab-pane " id="victoires" role="tabpanel"></div>
+
+                                <div class="video-sec">
+                                    <h4 class="heading-small">Vidéo en vedette</h4>
+                                    <div class="video-block">
+                                        <div class="embed-responsive embed-responsive-4by3">
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/WACRR1UdJJQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></aside></div>
+
+                </div>
+            </div>
+                <div class="">
+                    <div class="row">
+                        <div class="col-sm-12">
+                                <h3 class="heading-large">Les sondages les plus populaires</h3>
+                        {% set sondages = sondages|reverse %}
+                        {% for i in 0..3 %}
+                            <div class="col-lg-3 col-md-6 col-xs-12 col-sm-12" style="display: table-cell;padding: 5px;">
+                                <div class="card">
+                                <div class="team-members" style="margin-bottom: 0px;">
+                                    <div id="team-avatar" class="">
+
+                                       <center> <img style="width: 360px; height: 240px; padding-top: 20px" class="img-responsive" src="{{ asset('uploads/brochures/' ~ sondages[i].image) }}" alt="">
+                                       </center></div>
+                                    <div class="team-desc">
+                                        <a class=""  href="{{ url('info_sondage', {id: sondages[i].id}) }}"><h2 style="color: gainsboro; background-color: #5e5e5e"></h2></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="height: 180px">
+                                    <div class="row">
+                                        <a href="{{ url('info_sondage', {id: sondages[i].id}) }}"><div class="col-md-12" style="padding-left: 30px"><span class="badge badge-danger faa-horizontal animated" style="background-color: red; margin-top: 5px;">Nouveau</span> <h4 style="font-family:'Times New Roman', Times, serif; color: #1d2124 ;padding-top: 1px"><br>{{ sondages[i].titre|striptags|slice(0,150) ~ '...' }}</h4>
+                                            </div></a>
+                                    </div>
+                                </div>
+                                    <div class="right" style="padding: 10px"> <a style="" id="s_btn" class="btn btn-info btn-round"  href="{{ url('info_sondage', {id: sondages[i].id}) }}">Je vote | <i class="glyphicon glyphicon-pencil"></i></a></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                        <!-- AddToAny BEGIN -->
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                            <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                            <a class="a2a_button_facebook"></a>
+                            <a class="a2a_button_twitter"></a>
+                            <a class="a2a_button_google_plus"></a>
+                        </div>
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        <!-- AddToAny END -->
+
+                            <div class="page-header"></div>
+
+
+
+
+
+                            <!-- /#myCarousel -->
+
+                        </div>
+                        <!-- /.col-md-12 -->
+        </div></div></div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $().ready(function(){
+            // the body of this function is in assets/material-kit.js
+            materialKit.initSliders();
+            window_width = $(window).width();
+
+            if (window_width >= 992){
+                big_image = $('.wrapper > .header');
+
+                $(window).on('scroll', materialKitDemo.checkScrollForParallax);
+            }
+
+        });
+
+        $(document).ready(function() {
+            $('.carousel').carousel({
+                interval: 6000
+            })
+        });
+
+    </script>
+</div>
+</div>
+{% endblock %}

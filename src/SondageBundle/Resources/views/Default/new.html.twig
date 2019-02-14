@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block script %}
+
+
+    {% endblock %}
+
+    <div class="container">
+        <div class=""><h1>Lancer un sondage:</h1><br></div>
+        <div class="row">
+
+            <div class="col-md-12 card">{{ form_start(form) }}
+                <label style="color: black "><br><h4>Insérez le titre de votre Sondage:</h4></label>
+                {{ form_widget(form.titre) }}
+                <label style="color: black "><br><h4>Qui est l'auteur du sondage:</h4></label>
+                {{ form_widget(form.author) }}
+
+                <label style="color: black "><h4>Inserez un lien : </h4> </label>(Si il y en a un)
+                {{ form_widget(form.lien) }}
+                <label style="color: black "><br><h4>Indiquez le théme:</h4></label>
+                {{ form_widget(form.theme) }}
+
+                <label style="color: black "><h4>insérez une image:</h4></label>
+                {{ form_widget(form.image, { 'attr': {'class': 'btn btn-default btn-file', 'value': 'photo de sondage'} }) }}
+                    <br>
+                <label style="color: black "><h4>Présentez l'objet de votre Sondage </h4></label>
+                {{ form_widget(form.text) }}
+
+                <br>
+                <br>
+                <label style="color: black ">
+
+                    <h4>posez votre questions:</h4></label>
+                <div class="container">
+                    <div id="add"></div></div>
+
+                    <div class="row">
+                    <div >
+                        {{  form_row(form.questions) }}
+                    </div>
+                    <a href="#" id="add_category" class="btn btn-default">Ajouter une Question</a>
+
+
+
+                </div>
+
+                <div class="col-md-offset-5"> <button type="submit" value="Create" class="btn btn-info btn-md" style="top: -20px"> créer le sondage</button></div>
+
+            </div>
+            {{ form_end(form) }}
+
+
+            </div>
+        <div class="col-md-2"> <a href="{{ path('sondageuser') }}" class="btn btn-info btn-md" >retour</a></div>
+
+                </div>
+        </div>
+
+
+        {# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var $container = $('div#sondagebundle_sondage_questions'); // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+        var index = $container.find(':input').length;// On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+
+        var index_rep;
+        $(document).on("click", "#add_category", function(e){
+            e.preventDefault();// évite qu'un # apparaisse dans l'URL
+            addQuestion($container); });// On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+
+        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+        if (index === 0) {
+            addQuestion($container);
+
+        } else {
+            // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+            $container.children('div').each(function() {
+                addDeleteLink($(this));
+            });
+        }
+
+        // La fonction qui ajoute un formulaire CategoryType
+        function addQuestion($container) {
+            index_rep = 0;
+            var template = $container.attr('data-prototype')
+                .replace(/__name__label__/g, 'question n°' + (index+1))
+                .replace(/questions___name__/g, 'questions_' + index)
+                .replace('name="sondagebundle_sondage[questions][__name__][questionText]"', 'name="sondagebundle_sondage[questions]['+ index +'][questionText]"')
+                .replace('Questions', '')
+                .replace('Reponses', '')
+
+            ;
+            // On crée un objet jquery qui contient ce template
+            var $prototype = $('<div class="col-md-12 well"><div class="">' + template + '</div></div>');
+
+            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+            if(index > 0)
+            {addDeleteLink($prototype);}
+
+            // On ajoute le prototype modifié à la fin de la balise <div>
+            $container.append($prototype);
+
+            var id = 'sondagebundle_sondage_questions_' + index + '_reponses'
+            var $container_rep = $(document.getElementById(id));
+
+            index++;
+
+            var i;
+            for (i=0;i<=1;i++){addResponse($container_rep);}
+
+
+            addAdd_repLink($container_rep);
+
+
+
+
+            // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+
+        }
+
+        function addResponse($container) {
+            var template = $container.attr('data-prototype')
+                .replace('question n°' + index.toString(), 'reponse n°' + (index_rep+1))
+                .replace('name="sondagebundle_sondage[questions][__name__][reponses][__name__][reponseText]"', 'name="sondagebundle_sondage[questions]['+ (index-1) +'][reponses]['+ index_rep+'][reponseText]"')
+                .replace(/reponses___name___questions/g, 'reponses_' + index_rep + '_questions')
+                .replace(/reponses___name__/g, 'reponses_' + index_rep)
+
+                .replace('Reponse', '')
+
+
+            ;
+
+            var $prototype = $(template);
+            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+
+            if (index_rep >1){addDeleteLink_rep($prototype); }
+
+
+            // On ajoute le prototype modifié à la fin de la balise <div>
+            $container.append($prototype);
+
+
+            index_rep ++
+
+        }
+
+
+
+        function addAdd_repLink($container_rep){
+
+
+            var $addLink = $('<a href="#" id="add_response" class="btn btn-default">Ajouter une reponse</a><br>');
+            $container_rep.append($addLink);
+
+            $addLink.click(function(e) {
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                addResponse( $container_rep);
+
+
+            });
+        }
+
+        // La fonction qui ajoute un lien de suppression d'une catégorie
+        function addDeleteLink($prototype) {
+            // Création du lien
+            var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer la question</a>');
+
+            // Ajout du lien
+            $prototype.append($deleteLink);
+
+            // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+            $deleteLink.click(function(e) {
+                $prototype.remove();
+                index--;
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+
+        function addDeleteLink_rep($prototype) {
+            // Création du lien
+            var $deleteLink = $('<div class="row"> <a href="#" class="btn btn-danger">Supprimer la reponse</a></div>');
+
+            // Ajout du lien
+            $prototype.append($deleteLink);
+
+            // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+            $deleteLink.click(function(e) {
+                $prototype.remove();
+                index_rep--;
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reponsesondage</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reponseSondage.id }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ reponseSondage.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ reponseSondage.nom }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ reponseSondage.mail }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ reponseSondage.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ reponseSondage.ville }}</td>
+            </tr>
+            <tr>
+                <th>Cp</th>
+                <td>{{ reponseSondage.cp }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ reponseSondage.age }}</td>
+            </tr>
+            <tr>
+                <th>Profession</th>
+                <td>{{ reponseSondage.profession }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ reponseSondage.message }}</td>
+            </tr>
+            <tr>
+                <th>Engagement</th>
+                <td>{% if reponseSondage.engagement %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse1</th>
+                <td>{% if reponseSondage.reponse1 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse2</th>
+                <td>{% if reponseSondage.reponse2 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse3</th>
+                <td>{% if reponseSondage.reponse3 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse4</th>
+                <td>{% if reponseSondage.reponse4 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse5</th>
+                <td>{% if reponseSondage.reponse5 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse6</th>
+                <td>{% if reponseSondage.reponse6 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse7</th>
+                <td>{% if reponseSondage.reponse7 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse8</th>
+                <td>{% if reponseSondage.reponse8 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse9</th>
+                <td>{% if reponseSondage.reponse9 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Reponse10</th>
+                <td>{% if reponseSondage.reponse10 %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reponsesondage_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reponsesondage_edit', { 'id': reponseSondage.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

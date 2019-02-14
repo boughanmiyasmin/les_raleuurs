@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Petition</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ petition.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ petition.nom }}</td>
+            </tr>
+            <tr>
+                <th>Cree</th>
+                <td>{{ petition.cree }}</td>
+            </tr>
+            <tr>
+                <th>N_p</th>
+                <td>{{ petition.np }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ petition.description }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{% if petition.img %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Info</th>
+                <td>{{ petition.info }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('petitionuser') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('petitionuser_edit', { 'id': petition.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

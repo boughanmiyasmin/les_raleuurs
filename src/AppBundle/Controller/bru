@@ -1,0 +1,128 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 14/12/2018
+ * Time: 13:45
+ */
+
+
+ /**
+      * Finds and displays a messages_OtO entity.
+      *
+      * @Route("/conversation/{user}", name="msg_user_show")
+      * @Method({"GET", "POST"})
+      */
+     public function showAction(Request $request, User $user_)
+     {
+         $user = $this->get('security.token_storage')->getToken()->getUser()->getId();
+
+         $msgRepository = $this->getDoctrine()->getRepository('AppBundle:Messages_OtO');
+         $fromUsers = $msgRepository->findFromUserByUserID($user);
+         $from_user = $messages_OtO -> getFromUser()->getId();
+         $msgs = $msgRepository->findMsgByUserID($user, $from_user);
+         $new_messages_OtO = new Messages_oto();
+         $form = $this->createForm('AppBundle\Form\Messages_user_OtOType', $new_messages_OtO);
+         $form->handleRequest($request);
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             $new_messages_OtO ->setFromUser($this->get('security.token_storage')->getToken()->getUser());
+             $new_messages_OtO ->setToUser($messages_OtO -> getFromUser());
+
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($new_messages_OtO);
+             $em->flush();
+             return new JsonResponse(array(
+                 'message_content'=> $new_messages_OtO->getContent(),
+                 'message_time'=>$new_messages_OtO->getCreatedAt()
+             ));
+             }
+
+         return $this->render('messages_oto/conversation_.html.twig', array(
+             'messages_OtOs' => $fromUsers,
+             'messages'=> $msgs,
+             'new_messages_OtOn' => $new_messages_OtO,
+             'form' => $form->createView(),
+         ));
+     }
+<div class="card card-raised card-carousel">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div class="carousel slide caption-animate" data-ride="carousel">
+
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" >
+                        <div class="item active header-filter clear-filter" id="slider" style= "position: center; background-image: url('{{ asset('bundles/framework/assets/img/16272382.jpg') }}');background-size: cover ;">
+
+                            <div class="carousel-caption fadeIn">
+
+                            </div>
+
+                        </div>
+
+                        <div class="item" id="slider" style= ";background-image: url('{{ asset('bundles/framework/assets/img/petition1.jpeg')}}');background-size: cover">
+
+                            <div class="carousel-caption fadeInLeftBig" style="height: 200px;width: 500px; bottom:200px ;left:-0px ;vertical-align: middle;">
+                                <div class="card-header">
+                                    <h2 style="font-weight: bold;font-style: normal;font-size: 300%;color: whitesmoke;text-shadow:-1px -1px 0 #000,  1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;">{{ petitions[2].nom }}</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div ><a style="text-decoration: none; color: #1d2124;" href="{{ url('info_petition', {id: petitions[2].id}) }}" class="btnn" >signez cette petition<span class="arrow"><i class="glyphicon glyphicon-pencil"></i> </span></a></div>
+                                </div>
+                                <div class="card-footer">
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="item" id="slider" style= ";background-image: url('{{ asset('uploads/brochures/' ~ petitions[1].img) }}');background-size: cover">
+
+                            <div class="carousel-caption fadeInLeftBig" style="height: 200px;width: 500px; bottom:200px ;left:-0px ;vertical-align: middle;">
+                                <div class="card-header">
+                                    <h2 style="font-weight: bold;font-style: normal;font-size: 300%;color: whitesmoke;text-shadow:-1px -1px 0 #000,  1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;">{{ petitions[1].nom }}</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div ><a style="text-decoration: none; color: #1d2124;" href="{{ url('info_petition', {id: petitions[1].id}) }}" class="btnn" >signez cette petition<span class="arrow"><i class="glyphicon glyphicon-pencil"></i> </span></a></div>
+                                </div>
+                                <div class="card-footer">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item" id="slider" style= ";background-image: url('{{ asset('bundles/framework/assets/img/papier3.jpg') }}');background-size: cover">
+
+                            <div class="carousel-caption fadeInLeftBig" style=" height: 200px;width: 500px; bottom:200px ;left:-0px ;vertical-align: middle;">
+                                <div class="card-header">
+                                    <h2 style="font-weight: bold;font-style: normal;font-size: 300%;color: whitesmoke;text-shadow:-1px -1px 0 #000,  1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;">{{ petitions[0].nom }}</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div ><a style="text-decoration: none; color: #1d2124;" href="{{ url('info_petition', {id: petitions[0].id}) }}" class="btnn" >signez cette petition<span class="arrow"><i class="glyphicon glyphicon-pencil"></i> </span></a></div>
+                                </div>
+                                <div class="card-footer">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </a>
+                </div>
+            </div>
+        </div>

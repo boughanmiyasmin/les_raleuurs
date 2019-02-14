@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Messages_otos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>Createdat</th>
+                <th>Readat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for messages_OtO in messages_OtOs %}
+            <tr>
+                <td><a href="{{ path('messages_oto_show', { 'id': messages_OtO.id }) }}">{{ messages_OtO.id }}</a></td>
+                <td>{{ messages_OtO.content }}</td>
+                <td>{% if messages_OtO.createdAt %}{{ messages_OtO.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if messages_OtO.readAt %}{{ messages_OtO.readAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('messages_oto_show', { 'id': messages_OtO.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('messages_oto_edit', { 'id': messages_OtO.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('messages_oto_new') }}">Create a new messages_OtO</a>
+        </li>
+    </ul>
+{% endblock %}

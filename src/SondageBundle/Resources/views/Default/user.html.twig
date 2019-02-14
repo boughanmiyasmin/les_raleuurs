@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="pull-right">
+        {{ form_start(form, { attr: {class: 'form-inline' } }) }}
+        {{ form_widget(form.Rechercher, {attr : {placeholder:'Rechercher un sondage'}}) }}
+        <button type="submit" class="btn">Rechercher</button>
+        {{ form_end(form) }}
+        <br>
+    </div>
+    <div class="profile-content">
+        <h4 class="card-title">Liste des sondages de {{ app.user.username }}</h4>
+
+        <div class="card-header card-header-warning">
+        <div class="col-md-offset-10"><p class="card-category"><a href="{{ path('sondageuser_new') }}">Créer un nouveau sondage</a></p></div>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-hover">
+            <thead class="text-warning">
+            <tr>
+                <th>Nom</th>
+                <th>Date de création</th>
+                <th>Actions</th>
+            </tr></thead>
+            <tbody>
+            <tr>{% for p in sondage %}
+            <tr>
+                <td><a href="{{ path('sondageuser_show', { 'id': p.id }) }}">{{ (p.titre|striptags|slice(0, 200) ~ '...') }}</a></td>
+                <td>{{ p.date }}</td>
+                <td>
+                    <a class="btn btn-success btn-link btn-sm" href="{{ url('sondageuser_edit', {id: p.id}) }}"><i class="glyphicon glyphicon-eye-open"></i></a>
+
+                    <a class="btn btn-warning btn-link btn-sm" href="{{ url('info_sondage', {id: p.id}) }}"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                    <a class="btn btn-danger btn-link btn-sm" href="{{ url('sondageuser_delete', {id: p.id}) }}"><i class="glyphicon glyphicon-trash"></i></a>
+
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+{% endblock %}

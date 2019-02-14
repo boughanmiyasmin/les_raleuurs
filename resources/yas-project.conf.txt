@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+    ServerName petition.com
+    DocumentRoot "/var/www/yas-project/web"
+
+    <Directory "/var/www/yas-project/web">
+	Options Indexes FollowSymlinks Multiviews
+        AllowOverride All
+	Require all granted
+	<FilesMatch "/.php$">
+	  Require all granted
+	  SetHandler proxy:fcgi://127.0.0.1:9000
+	</FilesMatch>
+    </Directory>
+
+    ErrorLog "/var/log/apache2/petition_error.log"
+    ServerSignature Off
+    CustomLog "/var/log/apache2/petition_access.log" combined
+</VirtualHost>
+

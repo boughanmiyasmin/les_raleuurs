@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Signatures list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Mail</th>
+                <th>Telephone</th>
+                <th>Ville</th>
+                <th>Cp</th>
+                <th>Annonyme</th>
+                <th>Age</th>
+                <th>Profession</th>
+                <th>Message</th>
+                <th>Engagement</th>
+                <th>Complement1</th>
+                <th>Complement2</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for signature in signatures %}
+            <tr>
+                <td><a href="{{ path('signature_show', { 'id': signature.id }) }}">{{ signature.id }}</a></td>
+                <td>{{ signature.prenom }}</td>
+                <td>{{ signature.nom }}</td>
+                <td>{{ signature.mail }}</td>
+                <td>{{ signature.telephone }}</td>
+                <td>{{ signature.ville }}</td>
+                <td>{{ signature.cp }}</td>
+                <td>{% if signature.annonyme %}Yes{% else %}No{% endif %}</td>
+                <td>{{ signature.age }}</td>
+                <td>{{ signature.profession }}</td>
+                <td>{{ signature.message }}</td>
+                <td>{% if signature.engagement %}Yes{% else %}No{% endif %}</td>
+                <td>{{ signature.complement1 }}</td>
+                <td>{{ signature.complement2 }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('signature_show', { 'id': signature.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('signature_edit', { 'id': signature.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('signature_new') }}">Create a new signature</a>
+        </li>
+    </ul>
+{% endblock %}

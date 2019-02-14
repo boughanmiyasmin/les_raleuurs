@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if (is_granted('IS_AUTHENTICATED_REMEMBERED')) and (messages|length > 0) %}
+
+            <div class="row">
+
+                <div class="col-md-3 well">
+                    <h2>Toutes les conversations</h2>
+                    <div class="list-group">
+                        {% set array_box = {} %}
+                        {% for talking_to_user_name in talking_to_user_names %}
+                            {% if talking_to_user_name.fromUser not in array_box and talking_to_user_name.fromUser != user %}
+                            {% set array_box = array_box|merge([talking_to_user_name.fromUser])%}
+                            {% endif %}
+
+                            {% if talking_to_user_name.toUser not in array_box and talking_to_user_name.toUser != user %}
+                                {% set array_box = array_box|merge([talking_to_user_name.toUser])%}
+                            {% endif %}
+                        {% endfor %}
+
+
+
+
+
+                        {% for talking_to_user_name in array_box %}
+                                <p><a class="list-group-item" href="{{ path('conversation_show', {'talking_to_user_name' : talking_to_user_name}) }}">{{ talking_to_user_name}}</a></p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            <div class="col-md-9">
+                <div class="card ">
+                    <div class="card-header well well-sm"> {% if app.user.username == messages[0].toUser %}{{ messages[0].fromUser }}{% set talking_to = messages[0].fromUser %}{% else %}{{ messages[0].toUser }}{% set talking_to = messages[0].toUser %}{% endif %}</div>
+                    <div class="card-body " style="overflow-x: hidden !important;">
+
+
+
+                            <div class="js-msg  pre-scrollable" id="messages" style="overflow-x: hidden">
+                             {% for message in messages %}
+                                {% if (app.user.username == message.toUser) or (app.user.username == message.fromUser) %}
+                                <div class="row">
+                                    <div class="js-msg">
+                                        <p>
+                                            {% if app.user.username == message.toUser %}
+                                                <div class="col-md-4 msg_cotainer_send" style="width: auto;height: auto ; left: 20px"><strong>
+                                                {{ message.fromUser }}
+                                            </strong><br>
+                                            {{ message.content }}</div>
+                                            {% else %}
+
+                                            <div class="">
+                                            <div class="text-right msg_cotainer" style="width: auto;height: auto;float: right; right: 20px"><strong>
+                                                        {{ message.fromUser }}
+                                                    </strong><br>
+                                                    <div class="js-msg">{{ message.content }}</div> </div></div>
+                                            {% endif %}
+
+                                        </p>
+                                    </div>
+                                </div>
+                                {% else %}
+                                    <p> you are not allowed to be here</p>
+                                {% endif %}
+                              {% endfor %}
+                                <div class="row" id="js-div"></div>
+                            </div>
+
+                                <a id ="loading" class="text-right btn-lg" style=" right: 10px;display: none;"><i class="fa fa-spinner fa-spin"></i></a>
+                                {{ form_start(form) }}
+                                {{ form_widget(form.content) }}
+                                <input id="mySubmitButton" class="js-button" type="submit" value="envoyer">
+                                {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+            </div>
+    {% block javascripts %}
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            function lastMsg() {
+                var element = document.getElementById("messages");
+                element.scrollTop = element.scrollHeight;
+            }
+            window.onload = lastMsg();
+            $(document).on("submit", "#form-sent", function(e){
+                e.preventDefault();
+                document.getElementById('loading').style.display = 'block';
+                const url = '{{ path('conversation_show', {'talking_to_user_name' : talking_to}) }}';
+                $.fn.serializeObject = function()
+                {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function() {
+                        if (o[this.name] !== undefined) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [o[this.name]];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
+
+                var form = $("#form-sent");
+                var form_data = form.serializeObject();
+                $('#mySubmitButton').attr("disabled",true);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: form_data,
+                    success:function(data){
+                        document.getElementById('loading').style.display = 'none';
+                        $('#mySubmitButton').attr("disabled",false);
+                        $('#form-sent')[0].reset();
+                        $('#js-div').append('<div class="js-msg"><p><div class=""> <div class="text-right msg_cotainer" style="width: auto;height: auto;float: right; right: 20px"><strong>'+ '{{ app.user.username}}' +'</strong><br>' + data.message_content + '</div></div></p></div>')
+                        var element = document.getElementById("messages");
+                        element.scrollTop = element.scrollHeight;
+                    }});
+
+            });
+        </script>
+
+    {% endblock %}
+{% else %}
+<h1 >404 - Désolé , un probléme vient de survenir</h1>
+{% endif %}
+
+{% endblock %}

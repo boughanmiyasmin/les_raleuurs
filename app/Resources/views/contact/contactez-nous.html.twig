@@ -1,0 +1,27 @@
+{% extends 'base_login.html.twig' %}
+
+{% block body %}
+    <div id="contact" class="container">
+
+            <div class="well well-sm">
+                <h3><strong>Contactez-Nous</strong></h3>
+            </div>
+
+            <div class="">
+                <div class="col-md-7" style="right: -20px ;">
+                    <center><img style="height: 30em;" src="{{ asset('bundles/framework/img/contactez-nous.jpg') }}" id="team-avatar"></center>
+
+                </div>
+
+                <div class="col-md-4 well" style="top: 10px; margin: 10px 10px 20px;">
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+
+                            <div class=" col-md-offset-4 " ><input style="top: -20px" type="submit" value="Envoyer" class="btn btn-round btn-info"/></div>
+                            {{ form_end(form) }}
+
+                </div>
+            </div>
+    </div>
+
+{% endblock %}
