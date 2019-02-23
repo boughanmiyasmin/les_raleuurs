@@ -118,13 +118,13 @@ hwi_oauth:
     resource_owners:
         facebook:
             type:           facebook
-            client_id:      869033306821620
-            client_secret:  da78dc36e8fc2e4362a8c594e5d7b14f
+            client_id:      ?
+            client_secret:  ?
             infos_url:     "https://graph.facebook.com/me?fields=id,name,email"
         google:
             type:           google
-            client_id:      55453888506-b6tpkdgtjd66fo4eug2tie3q0i4s352r.apps.googleusercontent.com
-            client_secret:  eAp9Pf9rKQew1MjknCKSPDmS
+            client_id:      ?
+            client_secret:  ?
             scope:  "email profile"
 
 
